@@ -1,0 +1,10 @@
+{
+    "ASWEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "dupred/multi-"
+        }
+    ]
+
+}
