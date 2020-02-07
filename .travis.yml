@@ -10,14 +10,14 @@ script:
     - docker run -e CI=true n4ybn/react-test npm test
 
 after_success:
-    - docker build -t n4ybn/multi-client ./client
-    - docker build -t n4ybn/multi-nginx ./nginx
-    - docker build -t n4ybn/multi-server ./server
-    - docker build -t n4ybn/multi-worker ./worker
+    - docker build -t dupred/multi-client ./client
+    - docker build -t dupred/multi-nginx ./nginx
+    - docker build -t dupred/multi-server ./server
+    - docker build -t dupred/multi-worker ./worker
     # Login to Docker cli
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     # Take those images and push them to docker hub
-    - docker push n4ybn/multi-client
-    - docker push n4ybn/multi-nginx
-    - docker push n4ybn/multi-server
-    - docker push n4ybn/multi-worker
+    - docker push dupred/multi-client
+    - docker push dupred/multi-nginx
+    - docker push dupred/multi-server
+    - docker push dupred/multi-worker
