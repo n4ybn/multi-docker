@@ -3,7 +3,7 @@
     "containerDefinitions": [
         {
             "name": "client",
-            "image": "dupred/multi-client",
+            "image": "dupred/multi-client:v3",
             "hostname": "client",
             "essential": false,
             "memory": 256
