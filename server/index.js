@@ -54,7 +54,7 @@ app.get('/values/current', async (req, res) => {
 app.post('/values', async (req, res) => {
   const index = req.body.index;
 
-  if (parseInt(index) > 1020) {
+  if (parseInt(index) > 40) {
     return res.status(422).send('Index too high');
   }
 
@@ -66,5 +66,5 @@ app.post('/values', async (req, res) => {
 });
 
 app.listen(5000, err => {
-  console.log('Listening on port 5000');
+  console.log('Listening');
 });

@@ -1,36 +1,35 @@
 sudo: required
-language: generic
 services:
-    - docker
+  - docker
 
 before_install:
-    - docker build -t dupred/multi-client:v4 -f ./client/Dockerfile.dev ./client
+  - docker build -t stephengrider/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-    - docker run -e CI=true dupred/multi-client:v4 npm test
+  - docker run stephengrider/react-test npm test -- --coverage
 
 after_success:
-    - docker build -t dupred/multi-client:v4 ./client
-    - docker build -t dupred/multi-nginx ./nginx
-    - docker build -t dupred/multi-server ./server
-    - docker build -t dupred/multi-worker ./worker
-    # Login to Docker cli
-    - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-    # Take those images and push them to docker hub dsfgsd
-    - docker push dupred/multi-nginx
-    - docker push dupred/multi-server
-    - docker push dupred/multi-worker
-    - docker push dupred/multi-client:v4
+  - docker build -t stephengrider/multi-client ./client
+  - docker build -t stephengrider/multi-nginx ./nginx
+  - docker build -t stephengrider/multi-server ./server
+  - docker build -t stephengrider/multi-worker ./worker
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to docker hub
+  - docker push stephengrider/multi-client
+  - docker push stephengrider/multi-nginx
+  - docker push stephengrider/multi-server
+  - docker push stephengrider/multi-worker
 
 deploy:
-    edge: true
-    provider: elasticbeanstalk
-    region: us-east-1
-    app: multi-docker
-    env: MultiDocker-env
-    bucket_name: elasticbeanstalk-us-east-1-570317715919
-    bucket_path: docker-multi
-    on:
-        branch: master
-    access_key_id: $AWS_ACCESS_KEY
-    secret_access_key: $AWS_SECRET_KEY
+  provider: elasticbeanstalk
+  region: us-west-1
+  app: multi-docker
+  env: MultiDocker-env
+  bucket_name: elasticbeanstalk-us-west-1-306476627547
+  bucket_path: docker-multi
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: $AWS_SECRET_KEY
