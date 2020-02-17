@@ -9,7 +9,7 @@ spec:
             component: server
     template:
         metadata:
-            lables:
+            labels:
                 component: server
         spec: 
             containers:
@@ -17,4 +17,3 @@ spec:
                 image: dupred/multi-server
                 ports:
                   - containerPort: 5000
-                  
